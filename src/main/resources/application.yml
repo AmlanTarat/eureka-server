@@ -1,0 +1,36 @@
+eureka:
+  instance:
+    hostname: ${EUREKA_SERVICE_NAME}
+  client:
+    service-url:
+      defaultZone: ${vcap.service.${EUREKA_SERVICE_NAME}.credentials.uri}
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+    enable-self-preservation: false
+
+logging:
+  level:
+    '[com.netflix]': OFF
+    '[com.netflix.discovery]': OFF
+
+management:
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  endpoints:
+    web:
+      exposure:
+        include:
+        - env
+        - health
+        - info
+
+spring:
+  config:
+    activate:
+      on-profile:
+      - cloud
+
